@@ -1,0 +1,290 @@
+{
+  "app": {
+    "name": "ToTerminal",
+    "version": "v1.0",
+    "title": "ToTerminal v1.0"
+  },
+  "main": {
+    "menu": {
+      "terminal": "Terminal",
+      "scripts": "Scripts",
+      "config": "Configuración",
+      "help": "Ayuda",
+      "clear_screen": "Limpiar pantalla",
+      "exit": "Salir",
+      "create_script": "Crear Script...",
+      "manage_scripts": "Administrar Scripts...",
+      "preferences": "Preferencias...",
+      "about": "Acerca de"
+    },
+    "status": {
+      "path": "Ruta:",
+      "status": "Estado:",
+      "ready": "Ready"
+    },
+    "terminal": {
+      "welcome": "=== Bienvenido a MiniTerminal v1.0 ===",
+      "help_hint": "Escribe 'help' para ver los comandos disponibles",
+      "command_input_placeholder": "Escribe tu comando aquí...",
+      "screen_cleared": "Pantalla limpia"
+    },
+    "commands": {
+      "help": {
+        "title": "Comandos disponibles:",
+        "help": "  help     - Muestra esta ayuda",
+        "clear": "  clear    - Limpia la pantalla",
+        "pwd": "  pwd      - Muestra el directorio actual",
+        "whoami": "  whoami   - Muestra el usuario actual",
+        "date": "  date     - Muestra la fecha y hora actual",
+        "echo": "  echo     - Repite el texto ingresado",
+        "exit": "  exit     - Sale de la aplicación"
+      },
+      "unknown": "Comando no reconocido: {0}",
+      "help_suggestion": "Escribe 'help' para ver los comandos disponibles"
+    },
+    "dialogs": {
+      "help": {
+        "title": "Ayuda - MiniTerminal",
+        "header": "Ayuda de MiniTerminal",
+        "content": "MiniTerminal es un emulador de terminal básico.\n\nUsa los comandos disponibles en el terminal o accede al menú de configuración para personalizar la aplicación.\n\nUsa las flechas ↑↓ para navegar por el historial de comandos."
+      },
+      "about": {
+        "title": "Acerca de - MiniTerminal",
+        "header": "MiniTerminal v1.0",
+        "content": "Mini Terminal desarrollado con JavaFX\n\nCreado como proyecto educativo\n© 2024 MiniTerminal Project"
+      },
+      "exit": {
+        "title": "Salir - MiniTerminal",
+        "header": "¿Estás seguro que deseas salir?",
+        "content": "Se cerrará la aplicación MiniTerminal."
+      }
+    },
+    "windows": {
+      "config": {
+        "title": "Configuración - MiniTerminal",
+        "error": "Error al abrir la ventana de configuración"
+      },
+      "script_creator": {
+        "title": "Crear Script - MiniTerminal",
+        "edit_title": "Editar Script - MiniTerminal",
+        "error": "Error al abrir la ventana de creación de scripts",
+        "script_created": "Script '{0}' creado exitosamente",
+        "script_updated": "Script '{0}' actualizado exitosamente",
+        "language": "Lenguaje: {0}",
+        "path": "Ruta: {0}"
+      }
+    }
+  },
+  "config": {
+    "tabs": {
+      "appearance": "Apariencia",
+      "terminal": "Terminal",
+      "advanced": "Avanzado",
+      "scripts": "Scripts"
+    },
+    "appearance": {
+      "theme": {
+        "title": "Tema del terminal",
+        "label": "Tema:",
+        "preview": "Vista previa",
+        "options": {
+          "classic_green": "Verde Clásico",
+          "dark_green": "Verde Oscuro",
+          "neon_green": "Verde Neón",
+          "custom": "Personalizado"
+        }
+      },
+      "colors": {
+        "title": "Colores personalizados",
+        "background": "Color de fondo:",
+        "text": "Color de texto:"
+      },
+      "font": {
+        "title": "Configuración de fuente",
+        "family": "Familia de fuente:",
+        "size": "Tamaño de fuente:",
+        "options": {
+          "courier_new": "Courier New",
+          "consolas": "Consolas",
+          "monaco": "Monaco",
+          "ubuntu_mono": "Ubuntu Mono",
+          "jetbrains_mono": "JetBrains Mono",
+          "fira_code": "Fira Code",
+          "source_code_pro": "Source Code Pro"
+        }
+      }
+    },
+    "terminal": {
+      "prompt": {
+        "title": "Configuración del prompt",
+        "custom_prompt": "Prompt personalizado:"
+      },
+      "interface": {
+        "title": "Elementos de la interfaz",
+        "show_time": "Mostrar hora en barra de estado",
+        "show_path": "Mostrar ruta actual en barra de estado",
+        "sound_effects": "Efectos de sonido"
+      },
+      "history": {
+        "title": "Historial de comandos",
+        "limit": "Límite de historial:",
+        "commands": "comandos"
+      }
+    },
+    "advanced": {
+      "features": {
+        "title": "Funcionalidades avanzadas",
+        "auto_complete": "Auto-completado de comandos",
+        "case_sensitive": "Comandos sensibles a mayúsculas/minúsculas"
+      },
+      "startup": {
+        "title": "Configuración de inicio",
+        "startup_command": "Comando de inicio:",
+        "placeholder": "Comando a ejecutar al iniciar (opcional)"
+      },
+      "logging": {
+        "title": "Registro de actividad",
+        "log_commands": "Guardar historial de comandos en archivo",
+        "log_file": "Archivo de log:",
+        "browse": "Examinar...",
+        "warning": "Nota: Los logs pueden contener información sensible"
+      }
+    },
+    "buttons": {
+      "apply": "Aplicar",
+      "cancel": "Cancelar",
+      "reset": "Restablecer",
+      "edit": "Editar",
+      "browse": "Examinar..."
+    },
+    "dialogs": {
+      "applied": {
+        "title": "Configuración aplicada",
+        "header": "Configuración guardada exitosamente",
+        "content": "Los cambios se han aplicado correctamente.\nAlgunos cambios pueden requerir reiniciar la aplicación."
+      },
+      "reset": {
+        "title": "Restablecer configuración",
+        "header": "¿Restablecer a valores por defecto?",
+        "content": "Se perderán todos los cambios de configuración actual."
+      },
+      "file_chooser": {
+        "title": "Seleccionar archivo de log",
+        "log_files": "Archivos de log",
+        "text_files": "Archivos de texto",
+        "all_files": "Todos los archivos"
+      }
+    }
+  },
+  "script_creator": {
+    "header": {
+      "title": "Crear Nuevo Script",
+      "subtitle": "Complete la información del script que desea crear"
+    },
+    "basic_info": {
+      "title": "Información básica",
+      "name": {
+        "label": "Nombre del script:",
+        "placeholder": "Ingrese el nombre del script"
+      },
+      "path": {
+        "label": "Ruta del archivo:",
+        "placeholder": "Seleccione la ruta del archivo"
+      },
+      "language": {
+        "label": "Lenguaje:",
+        "help": "Seleccione el lenguaje de programación"
+      }
+    },
+    "description": {
+      "title": "Descripción del script",
+      "label": "Descripción detallada:",
+      "placeholder": "Ingrese una descripción detallada del script, su propósito y funcionalidad..."
+    },
+    "help": {
+      "title": "💡 Consejos para una buena descripción:",
+      "items": [
+        "• Explique qué hace el script de manera clara",
+        "• Mencione los parámetros o argumentos que acepta",
+        "• Indique cualquier dependencia o requisito especial",
+        "• Incluya ejemplos de uso si es necesario"
+      ]
+    },
+    "preview": {
+      "title": "Vista previa",
+      "name": "Nombre:",
+      "language": "Lenguaje:",
+      "path": "Ruta:",
+      "placeholder_name": "[Se mostrará cuando ingrese el nombre]",
+      "placeholder_path": "[Se mostrará cuando seleccione la ruta]"
+    },
+    "validation": {
+      "name": {
+        "required": "El nombre del script es obligatorio",
+        "min_length": "El nombre debe tener al menos 3 caracteres",
+        "invalid_chars": "Solo se permiten letras, números, guiones y espacios",
+        "valid": "✓ Nombre válido"
+      },
+      "path": {
+        "required": "La ruta del script es obligatoria",
+        "not_file": "La ruta debe apuntar a un archivo",
+        "not_exists": "⚠ El archivo no existe (se creará al guardar)",
+        "valid": "✓ Archivo válido"
+      },
+      "description": {
+        "required": "La descripción es obligatoria",
+        "min_length": "La descripción debe tener al menos 10 caracteres",
+        "max_length": "La descripción no puede exceder 500 caracteres",
+        "valid": "✓ Descripción válida ({0} caracteres restantes)"
+      }
+    },
+    "file_chooser": {
+      "title": "Seleccionar archivo de script",
+      "java_files": "Archivos Java",
+      "jar_files": "Archivos JAR",
+      "js_files": "Archivos JavaScript",
+      "ts_files": "Archivos TypeScript",
+      "json_files": "Archivos JSON",
+      "all_files": "Todos los archivos"
+    },
+    "dialogs": {
+      "created": {
+        "title": "Script creado",
+        "header": "Script creado exitosamente",
+        "content": "El script '{0}' ha sido creado correctamente.\n\nLenguaje: {1}\nRuta: {2}"
+      },
+      "updated": {
+        "title": "Script actualizado",
+        "header": "Script actualizado exitosamente",
+        "content": "El script '{0}' ha sido actualizado correctamente.\n\nLenguaje: {1}\nRuta: {2}"
+      }
+    },
+    "buttons": {
+      "create": "Crear Script",
+      "update": "Actualizar Script",
+      "clear": "Limpiar",
+      "cancel": "Cancelar"
+    }
+  },
+  "languages": {
+    "java": "Java",
+    "nodejs": "Node.js"
+  },
+  "common": {
+    "ok": "OK",
+    "cancel": "Cancelar",
+    "yes": "Sí",
+    "no": "No",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "warning": "Advertencia",
+    "info": "Información",
+    "success": "Éxito"
+  }
+} 

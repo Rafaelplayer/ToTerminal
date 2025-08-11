@@ -1,0 +1,16 @@
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/MiniTerminalApp.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/ScriptReader/Script.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/ScriptReader/ReaderConfig.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/ScriptReader/ScriptState.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/models/ScriptView.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/controllers/ConfigController.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/utils/InternationalizationHelper.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/interpreter/Interpreter.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/controllers/ScriptCreatorController.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/ScriptReader/ScriptReader.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/utils/LanguageManager.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/utils/Values.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/module-info.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/ScriptReader/AvailableLanguage.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/controllers/MainController.java
+/home/liack/Documentos/Proyectos/ToTerminal/src/main/java/com/ToTerminal/Pruebas.java

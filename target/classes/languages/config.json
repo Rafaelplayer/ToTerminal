@@ -1,0 +1,30 @@
+{
+  "default_language": "es",
+  "available_languages": [
+    {
+      "code": "es",
+      "name": "Español",
+      "native_name": "Español",
+      "flag": "🇪🇸"
+    },
+    {
+      "code": "en",
+      "name": "English",
+      "native_name": "English",
+      "flag": "🇺🇸"
+    }
+  ],
+  "fallback_language": "es",
+  "auto_detect": true,
+  "date_format": "dd/MM/yyyy",
+  "time_format": "HH:mm:ss",
+  "number_format": {
+    "decimal_separator": ",",
+    "thousands_separator": ".",
+    "decimal_places": 2
+  },
+  "currency": {
+    "symbol": "€",
+    "position": "after"
+  }
+} 
