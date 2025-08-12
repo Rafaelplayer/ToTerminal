@@ -12,4 +12,5 @@ module com.ToTerminal {
     exports com.ToTerminal.controllers;
     exports com.ToTerminal.ScriptReader;
     exports com.ToTerminal.utils;
+    exports com.ToTerminal.models;
 }

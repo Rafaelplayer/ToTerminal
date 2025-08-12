@@ -1,8 +1,10 @@
 package com.ToTerminal.controllers;
 
 import com.ToTerminal.interpreter.Interpreter;
+import com.ToTerminal.models.ConfigData;
 import com.ToTerminal.utils.Values;
 import com.ToTerminal.utils.InternationalizationHelper;
+import com.ToTerminal.utils.StyleManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +26,7 @@ import java.util.ResourceBundle;
 /**
  * Controlador principal para la interfaz del terminal
  */
-public class MainController implements Initializable {
+public class MainController implements Initializable, StyleManager.StyleChangeListener {
 
     @FXML private MenuBar menuBar;
     @FXML private MenuItem configMenuItem;
@@ -44,9 +46,16 @@ public class MainController implements Initializable {
     private List<String> commandHistory = new ArrayList<>();
     private int historyIndex = -1;
     private Interpreter interpreter;
+    private StyleManager styleManager;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
+        // Inicializar StyleManager
+        styleManager = StyleManager.getInstance();
+        styleManager.addStyleChangeListener(this);
+        
         // Configurar valores iniciales
         currentPath.setText(Values.DEFAULT_PATH);
         terminalStatus.setText(InternationalizationHelper.getText("main.status.ready"));
@@ -72,6 +81,14 @@ public class MainController implements Initializable {
         );
         timeline.setCycleCount(javafx.animation.Timeline.INDEFINITE);
         timeline.play();
+        
+        // Registrar esta ventana en el StyleManager
+        javafx.application.Platform.runLater(() -> {
+            Stage stage = (Stage) menuBar.getScene().getWindow();
+            if (stage != null) {
+                styleManager.registerStage(stage);
+            }
+        });
     }
     
     private void setupEventHandlers() {
@@ -240,6 +257,44 @@ public class MainController implements Initializable {
         
         if (confirmation.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
             System.exit(0);
+        }
+    }
+    
+    @Override
+    public void onStyleChanged(ConfigData newConfig) {
+        // Aplicar los nuevos estilos al terminal principal
+        if (newConfig != null) {
+            // Aplicar estilos al área del terminal
+            if (terminalOutput != null) {
+                styleManager.applyStylesToNode(terminalOutput);
+            }
+            
+            // Aplicar estilos al área de entrada
+            if (commandInput != null) {
+                styleManager.applyStylesToNode(commandInput);
+            }
+            
+            // Aplicar estilos a las etiquetas
+            if (currentPath != null) {
+                styleManager.applyStylesToNode(currentPath);
+            }
+            
+            if (terminalStatus != null) {
+                styleManager.applyStylesToNode(terminalStatus);
+            }
+            
+            if (currentTime != null) {
+                styleManager.applyStylesToNode(currentTime);
+            }
+            
+            if (promptLabel != null) {
+                styleManager.applyStylesToNode(promptLabel);
+            }
+            
+            // Aplicar estilos al ScrollPane
+            if (outputScrollPane != null) {
+                styleManager.applyStylesToNode(outputScrollPane);
+            }
         }
     }
 }

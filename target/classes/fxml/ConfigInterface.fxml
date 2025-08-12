@@ -16,17 +16,7 @@
                   <padding>
                      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                   </padding>
-                  
-                  <!-- Sección Tema -->
-                  <VBox spacing="8">
-                     <Label text="Tema del terminal" styleClass="section-title" />
-                     <HBox alignment="CENTER_LEFT" spacing="10">
-                        <Label text="Tema:" styleClass="config-label" />
-                        <ComboBox fx:id="themeComboBox" prefWidth="200" />
-                        <Button text="Vista previa" onAction="#previewTheme" styleClass="small-button" />
-                     </HBox>
-                  </VBox>
-                  
+                 
                   <Separator />
                   
                   <!-- Sección Colores -->
@@ -87,7 +77,6 @@
                      <Label text="Elementos de la interfaz" styleClass="section-title" />
                      <CheckBox fx:id="showTimeCheckBox" text="Mostrar hora en barra de estado" />
                      <CheckBox fx:id="showPathCheckBox" text="Mostrar ruta actual en barra de estado" />
-                     <CheckBox fx:id="soundEffectsCheckBox" text="Efectos de sonido" />
                   </VBox>
                   
                   <Separator />
@@ -117,7 +106,6 @@
                   <VBox spacing="8">
                      <Label text="Funcionalidades avanzadas" styleClass="section-title" />
                      <CheckBox fx:id="autoCompleteCheckBox" text="Auto-completado de comandos" />
-                     <CheckBox fx:id="caseSensitiveCheckBox" text="Comandos sensibles a mayúsculas/minúsculas" />
                   </VBox>
                   
                   <Separator />

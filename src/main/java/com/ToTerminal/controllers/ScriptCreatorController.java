@@ -3,7 +3,9 @@ package com.ToTerminal.controllers;
 import com.ToTerminal.ScriptReader.AvailableLanguage;
 import com.ToTerminal.ScriptReader.ReaderConfig;
 import com.ToTerminal.ScriptReader.Script;
+import com.ToTerminal.models.ConfigData;
 import com.ToTerminal.utils.InternationalizationHelper;
+import com.ToTerminal.utils.StyleManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -17,7 +19,7 @@ import java.util.function.Consumer;
 /**
  * Controlador para la ventana de creación de scripts
  */
-public class ScriptCreatorController implements Initializable {
+public class ScriptCreatorController implements Initializable, StyleManager.StyleChangeListener {
 
     @FXML private TextField scriptNameField;
     @FXML private TextField scriptPathField;
@@ -42,14 +44,27 @@ public class ScriptCreatorController implements Initializable {
     
     private Script createdScript = null;
     private static Consumer<Script> onScriptCreated;
-    private  Script editingScript = null;
+    private Script editingScript = null;
+    private StyleManager styleManager;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Inicializar StyleManager
+        styleManager = StyleManager.getInstance();
+        styleManager.addStyleChangeListener(this);
+        
         setupLanguageComboBox();
         setupValidation();
         setupEventHandlers();
         clearForm();
+        
+        // Registrar esta ventana en el StyleManager
+        javafx.application.Platform.runLater(() -> {
+            Stage stage = (Stage) scriptNameField.getScene().getWindow();
+            if (stage != null) {
+                styleManager.registerStage(stage);
+            }
+        });
     }
     
     private void setupLanguageComboBox() {
@@ -423,7 +438,56 @@ public class ScriptCreatorController implements Initializable {
     public void setInitialValues(String name, String path, AvailableLanguage language, String description) {
         if (name != null) scriptNameField.setText(name);
         if (path != null) scriptPathField.setText(path);
-        if (language != null) languageComboBox.setValue(language);
+        if (path != null) languageComboBox.setValue(language);
         if (description != null) scriptDescriptionArea.setText(description);
+    }
+    
+    @Override
+    public void onStyleChanged(ConfigData newConfig) {
+        // Aplicar los nuevos estilos a la ventana de creación de scripts
+        if (newConfig != null && styleManager != null) {
+            // Aplicar estilos a los campos de entrada
+            if (scriptNameField != null) {
+                styleManager.applyStylesToNode(scriptNameField);
+            }
+            
+            if (scriptPathField != null) {
+                styleManager.applyStylesToNode(scriptPathField);
+            }
+            
+            if (scriptDescriptionArea != null) {
+                styleManager.applyStylesToNode(scriptDescriptionArea);
+            }
+            
+            // Aplicar estilos a los ComboBoxes
+            if (languageComboBox != null) {
+                styleManager.applyStylesToNode(languageComboBox);
+            }
+            
+            // Aplicar estilos a las etiquetas
+            if (nameValidationLabel != null) {
+                styleManager.applyStylesToNode(nameValidationLabel);
+            }
+            
+            if (pathValidationLabel != null) {
+                styleManager.applyStylesToNode(pathValidationLabel);
+            }
+            
+            if (descriptionValidationLabel != null) {
+                styleManager.applyStylesToNode(descriptionValidationLabel);
+            }
+            
+            if (previewNameLabel != null) {
+                styleManager.applyStylesToNode(previewNameLabel);
+            }
+            
+            if (previewLanguageLabel != null) {
+                styleManager.applyStylesToNode(previewLanguageLabel);
+            }
+            
+            if (previewPathLabel != null) {
+                styleManager.applyStylesToNode(previewPathLabel);
+            }
+        }
     }
 }
