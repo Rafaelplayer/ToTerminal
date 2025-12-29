@@ -10,6 +10,7 @@ public final class Values {
     public static final String SCRIPTS_DIR = System.getProperty("user.home") + "/.ToTerminal/scripts";
     public static final String CONFIG_DATA_DIR = System.getProperty("user.home") + "/.ToTerminal/data";
     public static final String CONFIG_FILE_NAME = "conf.dat";
+    public static String currentPath = DEFAULT_PATH;
     public Values(){
     }
 

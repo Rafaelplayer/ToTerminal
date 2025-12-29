@@ -10,10 +10,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 /**
- * Aplicación principal MiniTerminal
+ * Aplicación principal MiniTerminal.
+ * Esta clase es el punto de entrada de la aplicación JavaFX toTerminal.
  */
 public class MiniTerminalApp extends Application {
     
+    /**
+     * Inicia la aplicación JavaFX.
+     * Carga la interfaz principal, configura la escena y muestra la ventana.
+     *
+     * @param stage El escenario principal de la aplicación.
+     * @throws IOException Si falla la carga del archivo FXML.
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MiniTerminalApp.class.getResource("/fxml/MainInterface.fxml"));
@@ -26,13 +34,18 @@ public class MiniTerminalApp extends Application {
         stage.setScene(scene);
         stage.setMinWidth(800);
         stage.setMinHeight(500);
-        // Icono de la aplicación (opcional)
-        // stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/terminal-icon.png")));
+
         
         stage.show();
         Values.initialize();
     }
 
+    /**
+     * Método principal de entrada.
+     * Lanza la aplicación JavaFX.
+     *
+     * @param args Argumentos de la línea de comandos.
+     */
     public static void main(String[] args) {
         launch();
     }

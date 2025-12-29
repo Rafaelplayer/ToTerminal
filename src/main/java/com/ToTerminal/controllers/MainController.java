@@ -47,17 +47,23 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
     private int historyIndex = -1;
     private Interpreter interpreter;
     private StyleManager styleManager;
+
+    public static MainController instance;
     
+    /**
+     * Inicializa el controlador principal.
+     * Configura el StyleManager, el intérprete y los componentes de la interfaz.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        instance = this;
 
         // Inicializar StyleManager
         styleManager = StyleManager.getInstance();
         styleManager.addStyleChangeListener(this);
         
         // Configurar valores iniciales
-        currentPath.setText(Values.DEFAULT_PATH);
+        currentPath.setText(Values.currentPath);
         terminalStatus.setText(InternationalizationHelper.getText("main.status.ready"));
         updateTime();
 
@@ -91,6 +97,9 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
         });
     }
     
+    /**
+     * Configura los manejadores de eventos para la entrada de comandos y el menú.
+     */
     private void setupEventHandlers() {
         // Evento para procesar comandos al presionar Enter
         commandInput.setOnKeyPressed(this::handleKeyPressed);
@@ -102,6 +111,12 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
         aboutMenuItem.setOnAction(e -> showAbout());
     }
     
+    /**
+     * Maneja los eventos de teclado en el campo de entrada.
+     * Procesa Enter para ejecutar y flechas para navegar el historial.
+     *
+     * @param event El evento de teclado.
+     */
     private void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             processCommand();
@@ -114,6 +129,10 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
         }
     }
     
+    /**
+     * Procesa el comando ingresado por el usuario.
+     * Añade el comando al historial, lo muestra y lo envía al intérprete.
+     */
     private void processCommand() {
         String command = commandInput.getText().trim();
         if (!command.isEmpty()) {
@@ -134,6 +153,11 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
     
     
     
+    /**
+     * Navega por el historial de comandos.
+     *
+     * @param direction Dirección de navegación: -1 para atrás, 1 para adelante.
+     */
     private void navigateHistory(int direction) {
         if (commandHistory.isEmpty()) return;
         
@@ -151,6 +175,12 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
         commandInput.positionCaret(commandInput.getText().length());
     }
     
+    /**
+     * Agrega una línea de texto a la salida del terminal.
+     *
+     * @param text El texto a mostrar.
+     * @param styleClass La clase CSS para estilizar el texto.
+     */
     private void addOutputLine(String text, String styleClass) {
         Label outputLabel = new Label(text);
         outputLabel.getStyleClass().add("output-line");
@@ -163,11 +193,17 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
         });
     }
     
+    /**
+     * Actualiza la etiqueta de hora con la hora actual.
+     */
     private void updateTime() {
         LocalTime now = LocalTime.now();
         currentTime.setText(now.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
     }
     
+    /**
+     * Abre la ventana de configuración.
+     */
     @FXML
     private void openConfigWindow() {
         try {
@@ -188,6 +224,9 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
         }
     }
     
+    /**
+     * Abre la ventana de creación de scripts.
+     */
     @FXML
     private void openScriptCreatorWindow() {
         try {
@@ -223,6 +262,9 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
         }
     }
     
+    /**
+     * Muestra el diálogo de ayuda.
+     */
     @FXML
     private void showHelp() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -232,6 +274,9 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
         alert.showAndWait();
     }
     
+    /**
+     * Muestra el diálogo "Acerca de".
+     */
     @FXML
     private void showAbout() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -241,6 +286,9 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
         alert.showAndWait();
     }
     
+    /**
+     * Limpia la pantalla del terminal.
+     */
     @FXML
     private void clearScreen() {
         terminalOutput.getChildren().clear();
@@ -248,6 +296,9 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
         addOutputLine("", "normal");
     }
     
+    /**
+     * Cierra la aplicación solicitando confirmación.
+     */
     @FXML
     private void exitApplication() {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
@@ -260,6 +311,12 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
         }
     }
     
+    /**
+     * Evento disparado cuando cambia la configuración de estilo.
+     * Actualiza los estilos de todos los componentes visuales.
+     *
+     * @param newConfig La nueva configuración.
+     */
     @Override
     public void onStyleChanged(ConfigData newConfig) {
         // Aplicar los nuevos estilos al terminal principal
@@ -295,6 +352,30 @@ public class MainController implements Initializable, StyleManager.StyleChangeLi
             if (outputScrollPane != null) {
                 styleManager.applyStylesToNode(outputScrollPane);
             }
+        }
+    }
+    /**
+     * Obtiene la instancia única del controlador.
+     * Nota: Si la instancia no ha sido inicializada por JavaFX, creará una nueva desconectada de la UI.
+     * Se recomienda asegurar que la UI esté cargada antes de usar este método para operaciones de UI.
+     *
+     * @return La instancia de MainController.
+     */
+    public static synchronized MainController getInstance() {
+        if (instance == null) {
+            instance = new MainController();
+        }
+        return instance;
+    }
+
+    /**
+     * Actualiza la etiqueta de la ruta actual con el valor de Values.currentPath.
+     */
+    public void updatePath() {
+        if (currentPath == null){
+            currentPath = new Label(Values.currentPath);
+        }else{
+            currentPath.setText(Values.currentPath);
         }
     }
 }

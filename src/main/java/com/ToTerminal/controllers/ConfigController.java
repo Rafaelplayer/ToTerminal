@@ -79,6 +79,13 @@ public class ConfigController implements Initializable {
     public ScriptView lastSelectedScriptView;
 
 
+    /**
+     * Inicializa el controlador al cargar la vista FXML.
+     * Configura los listeners, carga la configuración y prepara la interfaz.
+     *
+     * @param location La ubicación utilizada para resolver rutas relativas para el objeto raíz, o null si no se conoce.
+     * @param resources Los recursos utilizados para localizar el objeto raíz, o null si no se localizó.
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Inicializar StyleManager
@@ -90,7 +97,7 @@ public class ConfigController implements Initializable {
         setupAdvancedTab();
         setupButtons();
         setupSettings();
-        updateScripstList();
+        updateScriptsList();
         
         // Registrar esta ventana en el StyleManager
         Platform.runLater(() -> {
@@ -113,6 +120,10 @@ public class ConfigController implements Initializable {
         toggleBottomBarForScripts(configTabPane.getSelectionModel().getSelectedItem() == scriptsTab);
     }
     
+    /**
+     * Configura la pestaña de Apariencia.
+     * Carga las opciones de fuentes y establece los listeners para los controles de color y tamaño.
+     */
     private void setupAppearanceTab() {
         // Configurar selector de fuente
         fontFamilyComboBox.getItems().addAll(
@@ -172,6 +183,10 @@ public class ConfigController implements Initializable {
         });
     }
     
+    /**
+     * Configura la pestaña de Terminal.
+     * Establece los valores iniciales para el prompt, historial y visualización.
+     */
     private void setupTerminalTab() {
         promptTextField.setText("user@ToTerminal:~$");
 
@@ -183,6 +198,10 @@ public class ConfigController implements Initializable {
         );
     }
     
+    /**
+     * Configura la pestaña Avanzado.
+     * Establece los valores para autocompletado, comandos de inicio y logging.
+     */
     private void setupAdvancedTab() {
         autoCompleteCheckBox.setSelected(true);
         logCommandsCheckBox.setSelected(false);
@@ -200,14 +219,21 @@ public class ConfigController implements Initializable {
         browseLogFileButton.setDisable(true);
     }
     
+    /**
+     * Configura los eventos de los botones principales.
+     */
     private void setupButtons() {
         applyButton.setOnAction(e -> applySettings());
         cancelButton.setOnAction(e -> closeWindow());
         resetDefaultsButton.setOnAction(e -> resetToDefaults());
         browseLogFileButton.setOnAction(e -> browseLogFile());
-        editButton.setOnAction(e -> editelection());
+        editButton.setOnAction(e -> editSelection());
     }
     
+    /**
+     * Carga la configuración actual desde el archivo de persistencia.
+     * Si no existe, crea una configuración por defecto.
+     */
     private void loadCurrentSettings() {
         File f = new File(Values.CONFIG_DATA_DIR + "/" + Values.CONFIG_FILE_NAME);
         if(!f.exists()){
@@ -232,6 +258,9 @@ public class ConfigController implements Initializable {
             e.printStackTrace();
         }
     }
+    /**
+     * Guarda la configuración actual en el archivo de persistencia.
+     */
     private void saveSettingsToFile(){
         File f = new File(Values.CONFIG_DATA_DIR + "/" + Values.CONFIG_FILE_NAME);
         try{
@@ -243,6 +272,10 @@ public class ConfigController implements Initializable {
         }
     }
 
+    /**
+     * Aplica la configuración cargada a los controles de la interfaz.
+     * Distribuye la configuración a las diferentes pestañas.
+     */
     private void setupSettings(){
         if (loadedSettings == null) {
             return;
@@ -284,6 +317,9 @@ public class ConfigController implements Initializable {
                logFilePathTextField != null;
     }
     
+    /**
+     * Configura los controles de apariencia basándose en la configuración cargada.
+     */
     private void setupAppearanceFromConfig() {
         // Configurar familia de fuente
         String fontKey = getFontKeyFromValue(loadedSettings.getSelectedFontFamily());
@@ -303,6 +339,10 @@ public class ConfigController implements Initializable {
         applyAppearanceStyles();
     }
     
+    /**
+     * Aplica los estilos de apariencia a toda la interfaz.
+     * Genera strings CSS basados en los colores y fuentes seleccionados.
+     */
     private void applyAppearanceStyles() {
         if (loadedSettings == null) return;
         
@@ -424,6 +464,12 @@ public class ConfigController implements Initializable {
         }
     }
     
+    /**
+     * Convierte el valor interno de la fuente a su nombre CSS correspondiente.
+     *
+     * @param fontValue Valor interno de la fuente (ej. "courier_new").
+     * @return El nombre de la familia de fuentes CSS.
+     */
     private String getFontFamilyCSSValue(String fontValue) {
         // Convertir valores internos a nombres de fuente CSS válidos
         switch (fontValue) {
@@ -489,6 +535,9 @@ public class ConfigController implements Initializable {
     /**
      * Método para limpiar todos los estilos inline y permitir que el CSS tome control
      */
+    /**
+     * Limpia los estilos en línea de todos los elementos.
+     */
     private void clearInlineStyles() {
         // Limpiar estilos del contenedor principal
         if (configTabPane != null) {
@@ -512,6 +561,9 @@ public class ConfigController implements Initializable {
         if (scriptContent != null) scriptContent.setStyle("");
     }
     
+    /**
+     * Configura los controles de la pestaña Terminal usando la configuración cargada.
+     */
     private void setupTerminalFromConfig() {
         // Configurar prompt personalizado
         promptTextField.setText(loadedSettings.getCustomPrompt());
@@ -526,6 +578,9 @@ public class ConfigController implements Initializable {
         }
     }
     
+    /**
+     * Configura los controles de la pestaña Avanzado usando la configuración cargada.
+     */
     private void setupAdvancedFromConfig() {
         // Configurar autocompletado
         autoCompleteCheckBox.setSelected(loadedSettings.isEnableAutoComplete());
@@ -542,6 +597,12 @@ public class ConfigController implements Initializable {
         browseLogFileButton.setDisable(!loadedSettings.isEnableCommandLogging());
     }
     
+    /**
+     * Obtiene la clave de internacionalización correspondiente a un valor interno de fuente.
+     *
+     * @param fontValue Valor interno de la fuente.
+     * @return Clave de recurso para el nombre legible de la fuente.
+     */
     private String getFontKeyFromValue(String fontValue) {
         // Mapear valores de fuente a claves de internacionalización
         switch (fontValue) {
@@ -564,6 +625,12 @@ public class ConfigController implements Initializable {
         }
     }
     
+    /**
+     * Obtiene el valor interno de fuente a partir de su clave de internacionalización.
+     *
+     * @param fontKey Clave de recurso o nombre legible de la fuente.
+     * @return Valor interno de la fuente.
+     */
     private String getFontValueFromKey(String fontKey) {
         // Mapear claves de internacionalización a valores internos
         if (fontKey.equals(InternationalizationHelper.getText("config.appearance.font.options.courier_new"))) {
@@ -584,6 +651,10 @@ public class ConfigController implements Initializable {
         return "courier_new";
     }
     
+    /**
+     * Aplica los cambios realizados y cierra la ventana.
+     * Muestra un mensaje de confirmación al usuario.
+     */
     @FXML
     private void applySettings() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -597,6 +668,10 @@ public class ConfigController implements Initializable {
         closeWindow();
     }
     
+    /**
+     * Recopila los valores de los controles y guarda la configuración.
+     * Actualiza el objeto ConfigData y persiste los cambios en disco.
+     */
     private void saveSettings() {
         System.out.println("Guardando configuración...");
         
@@ -635,6 +710,10 @@ public class ConfigController implements Initializable {
         System.out.println("Configuración guardada exitosamente");
     }
     
+    /**
+     * Restaura la configuración a sus valores por defecto.
+     * Solicita confirmación al usuario antes de proceder.
+     */
     @FXML
     private void resetToDefaults() {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
@@ -663,6 +742,9 @@ public class ConfigController implements Initializable {
         }
     }
     
+    /**
+     * Abre un selector de archivos para elegir la ruta del archivo de log.
+     */
     @FXML
     private void browseLogFile() {
         javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
@@ -679,7 +761,11 @@ public class ConfigController implements Initializable {
         }
     }
 
-    private void updateScripstList(){
+    /**
+     * Actualiza la lista visual de scripts disponibles.
+     * Lee los scripts usando ScriptReader y genera las vistas correspondientes.
+     */
+    private void updateScriptsList(){
         ArrayList<Script> list = new ScriptReader().getScripts();
         if(list == null){
             return;
@@ -689,17 +775,29 @@ public class ConfigController implements Initializable {
         }
     }
     
+    /**
+     * Cierra la ventana de configuración sin guardar los cambios no aplicados.
+     */
     @FXML
     private void closeWindow() {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
     
+    /**
+     * Muestra una vista previa del tema seleccionado (funcionalidad futura).
+     */
     @FXML
     private void previewTheme() {
         System.out.println("Vista previa del tema: No disponible");
     }
 
+    /**
+     * Alterna la visibilidad de la barra inferior de botones según la pestaña activa.
+     * Oculta botones de configuración general cuando se está en la pestaña de scripts.
+     *
+     * @param scriptsSelected Verdadero si la pestaña de scripts está seleccionada.
+     */
     private void toggleBottomBarForScripts(boolean scriptsSelected) {
         editButton.setVisible(scriptsSelected);
         editButton.setManaged(scriptsSelected);
@@ -719,7 +817,10 @@ public class ConfigController implements Initializable {
         }
     }
 
-    private void editelection(){
+    /**
+     * Abre la ventana de edición para el script seleccionado.
+     */
+    private void editSelection(){
         if(selectedScript == null){
             return;
         }
@@ -749,17 +850,23 @@ public class ConfigController implements Initializable {
         stage.close();
     }
 
+    /**
+     * Actualiza el estilo visual de los scripts seleccionados en la lista.
+     * Resalta el script seleccionado actualmente y restaura el estilo del previamente seleccionado.
+     */
     public void updateSelectionStyle(){
-        if(lastSelectedScriptView == null){
-            selectedScriptView. setStyle("-fx-background-color: #d0e0f0; -fx-border-color: #aaa; -fx-border-width: 1px; -fx-border-radius: 5px;");
-            lastSelectedScriptView = selectedScriptView;
-            return;
+        String selectedStyle = "-fx-background-color: #d0e0f0; -fx-border-color: #aaa; -fx-border-width: 1px; -fx-border-radius: 5px;";
+        String normalStyle = "-fx-background-color: #f0f0f0; -fx-border-color: #ccc; -fx-border-width: 1px; -fx-border-radius: 5px;";
+        
+        if (selectedScriptView != null) {
+            selectedScriptView.setStyle(selectedStyle);
         }
-        if(lastSelectedScriptView != selectedScriptView){
-            lastSelectedScriptView.setStyle("-fx-background-color: #f0f0f0; -fx-border-color: #ccc; -fx-border-width: 1px; -fx-border-radius: 5px;");
-            selectedScriptView. setStyle("-fx-background-color: #d0e0f0; -fx-border-color: #aaa; -fx-border-width: 1px; -fx-border-radius: 5px;");
-            lastSelectedScriptView = selectedScriptView;
+        
+        if (lastSelectedScriptView != null && lastSelectedScriptView != selectedScriptView) {
+            lastSelectedScriptView.setStyle(normalStyle);
         }
+        
+        lastSelectedScriptView = selectedScriptView;
     }
 
 }

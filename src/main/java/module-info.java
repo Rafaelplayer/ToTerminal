@@ -4,6 +4,7 @@ module com.ToTerminal {
     requires java.desktop;
     requires jdk.jdi;
     requires com.google.gson;
+    requires jdk.compiler;
 
     opens com.ToTerminal to javafx.fxml;
     opens com.ToTerminal.controllers to javafx.fxml;

@@ -1,9 +1,16 @@
 package com.ToTerminal.interpreter;
 
+import com.ToTerminal.controllers.MainController;
 import com.ToTerminal.utils.InternationalizationHelper;
+import com.ToTerminal.utils.Values;
+import com.sun.tools.javac.Main;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Clase encargada de interpretar y ejecutar los comandos del terminal
@@ -61,6 +68,13 @@ public class Interpreter {
             case "exit":
                 System.exit(0);
                 break;
+            case "cd":
+                try {
+                    changeDirectory(parts);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
             default:
                 addOutputLine(InternationalizationHelper.getText("main.commands.unknown", mainCommand), "error");
                 addOutputLine(InternationalizationHelper.getText("main.commands.help_suggestion"), "info");
@@ -98,5 +112,40 @@ public class Interpreter {
         javafx.application.Platform.runLater(() -> {
             outputScrollPane.setVvalue(1.0);
         });
+    }
+
+    private void changeDirectory (String[] args) throws java.io.IOException{
+        final String DIRECTORY = args[1];
+        boolean isAbsolutPath = DIRECTORY.startsWith(Values.DEFAULT_PATH);
+        File f = new File(DIRECTORY);
+        if(isAbsolutPath){
+            if(!f.exists()){
+                throw  new FileNotFoundException("Error");
+            }
+            if (f.isFile()) {
+
+            }else{
+                Values.currentPath = f.getAbsolutePath();
+                MainController mc = MainController.getInstance();
+                mc.updatePath();
+                addOutputLine(DIRECTORY,"output");
+            }
+
+        }else{
+            String abPath = Values.currentPath + "/" + DIRECTORY;
+            System.out.println(abPath);
+            f = new File(abPath);
+            if(!f.exists()){
+                throw new FileNotFoundException("Error");
+            }
+            if (f.isFile()) {
+            }else{
+                Values.currentPath = f.getAbsolutePath();
+                MainController mc = MainController.getInstance();
+                mc.updatePath();
+                addOutputLine(abPath,"output");
+            }
+        }
+
     }
 }
