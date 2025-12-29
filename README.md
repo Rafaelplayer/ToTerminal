@@ -164,7 +164,8 @@ Este proyecto está diseñado como base educativa. Siéntete libre de:
 
 Proyecto educativo - Uso libre para aprendizaje y desarrollo.
 
-## Autor
+## Autor 
+Rafaelito Vicioso Fleurimond.
 
 Desarrollado como proyecto educativo para aprender JavaFX y desarrollo de interfaces gráficas.
 
