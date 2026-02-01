@@ -1,4 +1,4 @@
-# MiniTerminal
+# ToTerminal / MiniTerminal
 
 Un emulador de terminal minimalista desarrollado con JavaFX, diseñado con una paleta de colores verde retro que evoca los terminales clásicos.
 
